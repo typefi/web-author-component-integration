@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=X-UA-Compatible content="IE=edge">
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel=apple-touch-icon-precomposed href=images/WebApp57.png>
+<link rel=apple-touch-icon-precomposed sizes=76x76
+	href=images/WebApp76.png>
+<link rel=apple-touch-icon-precomposed sizes=120x120
+	href=images/WebApp120.png>
+<link rel=apple-touch-icon-precomposed sizes=152x152
+	href=images/WebApp152.png>
+<link rel=apple-touch-icon-precomposed sizes=180x180
+	href=images/WebApp180.png>
+<link rel=icon sizes=192x192 href=images/WebApp192.png>
+<meta name=apple-mobile-web-app-title content="Oxygen XML Web Author">
+<meta name=apple-mobile-web-app-capable content=yes>
+<meta name=apple-mobile-web-app-status-bar-style content=black>
+<link rel=icon href=images/gui/favicon.ico>
+<link rel=stylesheet href=css/all-e2ae220655.css>
+<link rel=stylesheet href=css/typefi.css>
+<link rel=stylesheet href=../rest/v23.0.0/load/plugins.css>
+<script>var WEB_AUTHOR_LAST_BUILD_TIMESTAMP_ = 1605632532863;!function(e){var t=e?"":".dash",n="sync.cacheFix.activeBuildTime"+t;try{var r=localStorage.getItem(n);r?r!=WEB_AUTHOR_LAST_BUILD_TIMESTAMP_&&(localStorage.setItem(n,WEB_AUTHOR_LAST_BUILD_TIMESTAMP_),window.location.reload(!0)):localStorage.setItem(n,WEB_AUTHOR_LAST_BUILD_TIMESTAMP_)}catch(e){console.warn(e)}}(location.search.match(".*url=.+.*"));</script>
+<script src=v23.0.0-lib/layout-6314e0ab4e.js></script>
+<title></title>
+</head>
+<body>
+	<div id=review class="no-focus-visible layout-loading">
+		<header id=header class="ui-layout-north noprint">
+			<div id=header-bar>
+				<div class="header-left vertical-align-children">
+					<a href=oxygen.html rel=external id=header-logo
+						class=vertical-align-children><div
+							class="large-logo logo-container vertical-align-children">
+							<div class=ui-oxygen-logo></div>
+						</div></a>
+				</div>
+				<span id=title class=vertical-align-children></span>
+				<div id=header-right>
+					<span id=header-user-details-sep class=sep></span> <span
+						id=header-user-details class=vertical-align-children><span
+						class=user-name></span> <span
+						class="ui-action-large-icon user-photo"></span></span>
+				</div>
+			</div>
+		</header>
+		<div role=main id=editorContent class=ui-layout-center>
+			<div id=editor-stripes></div>
+			<div id=editor-frame-wrapper></div>
+			<div id=editor-stripes-bottom></div>
+		</div>
+		<div id=footer
+			class="ui-layout-south ui-footer ui-page-nomarker-selected noprint"></div>
+		<div role=complementary id=right-panel class="noprint ui-layout-east"></div>
+		<div role=complementary id=left-panel class="noprint ui-layout-west"></div>
+	</div>
+	<script src=workspace-2c52ba98ca.js></script>
+	<script>
+      document.querySelector('title').textContent = tr(msgs.WEB_AUTHOR_NAME_);
+
+      document.querySelector('#header-logo').setAttribute('title',
+              tr(msgs.GO_TO_DASHBOARD_, {'$APP_NAME': tr(msgs.WEB_AUTHOR_NAME_)}));
+
+      document.querySelector('#header-right .user-name').textContent = tr(msgs.ANONYMOUS_);
+  </script>
+	<script type=text/javascript>
+      workspace = new sync.Workspace();
+      workspace.init();
+      window.addEventListener("load", function() {
+        workspace.load();
+      });
+  </script>
+	<script src=../rest/v23.0.0/load/plugins.js></script>
+</body>
+</html>

@@ -7,6 +7,11 @@
  * The action that shows a popup and then inserts the text in the pop-up.
  */
 WebLinkAction = function(editor) {
+  // set login details	
+  $(".sep").css("display","none");
+  $(".user-name").text(getCookie("user_name"));
+  $(".ui-action-large-icon").removeClass("user-photo");	
+	
   // shortcut is Meta+L on Mac and Ctrl+L on other platforms.
   sync.actions.AbstractAction.call(this, 'M1 L');
   this.editor = editor;
@@ -86,4 +91,25 @@ function addToContextMenu(editor, actionId) {
       });
     }
   });
+}
+
+/**
+ * Get user from cookie
+ * @param cname
+ * @returns
+ */
+function getCookie(cname) {
+	  var name = cname + "=";
+	  var decodedCookie = decodeURIComponent(document.cookie);
+	  var ca = decodedCookie.split(';');
+	  for(var i = 0; i <ca.length; i++) {
+	    var c = ca[i];
+	    while (c.charAt(0) == ' ') {
+	      c = c.substring(1);
+	    }
+	    if (c.indexOf(name) == 0) {
+	      return c.substring(name.length, c.length);
+	    }
+	  }
+	  return "";
 }
