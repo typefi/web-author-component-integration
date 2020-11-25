@@ -17,7 +17,8 @@
   </developers>
 
   <properties>
-    <oxygen.version>[23.0.0.0, 23.1.0.0)</oxygen.version>
+    <oxygen.version>23.0.0.0</oxygen.version>
+    <web.author.component.version>23.0.0.0</web.author.component.version>
   </properties>
   
   <repositories>
@@ -32,9 +33,8 @@
     <dependency>
       <groupId>com.oxygenxml</groupId>
       <artifactId>web-author-component</artifactId>
-      <version>${oxygen.version}</version>
+      <version>${web.author.component.version}</version>
       <type>war</type>
-      <scope>provided</scope>
     </dependency>
   
     <dependency>
@@ -43,7 +43,6 @@
       <version>${oxygen.version}</version>
       <type>jar</type>
       <classifier>plugin</classifier>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.oxygenxml</groupId>
