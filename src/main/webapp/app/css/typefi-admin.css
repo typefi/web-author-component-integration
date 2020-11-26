@@ -1,0 +1,25 @@
+/*custom css only to override admin page*/
+#header-bar{
+    padding-left: 120px!important; 
+    border-bottom: 1px solid #b4b4b4!important;
+    background-color: #fff!important;
+}
+
+#header-bar, #header-right {
+	background-color: #212121 !important; 
+	background: -moz-linear-gradient(top, #373737, #212121) !important; 
+	background: -webkit-linear-gradient(top, #373737, #212121) !important; 
+	background: -ms-linear-gradient(top, #373737, #212121) !important; 
+	background: -o-linear-gradient(top, #373737, #212121) !important; 
+	background: linear-gradient(top, #373737, #212121) !important; 
+	min-height: 50px!important; 
+}
+
+.logo-container {
+    box-sizing: border-box;
+}
+
+
+.header-left {
+    padding-top: 2px!important;
+}

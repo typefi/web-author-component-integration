@@ -1,3 +1,4 @@
+/*custom css only to override oxygen pages*/
 .large-logo {
     background-color: transparent !important;
     background-image: url(../images/typefi-o.svg)!important;
@@ -13,10 +14,9 @@
 #header-bar, #header-right {
     background-color: #333;
     padding-left:120px;
-    
 }
 
-#header-right {
+#header-right, .logout-button {
     padding-right:120px;
 }
 
@@ -27,4 +27,23 @@
 #dashboard-container{
     padding-left: 120px;
     padding-right: 120px;
+}
+
+#header-bar, #header-right {
+	background-color: #212121;
+	background: -moz-linear-gradient(top, #373737, #212121);
+	background: -webkit-linear-gradient(top, #373737, #212121);
+	background: -ms-linear-gradient(top, #373737, #212121);
+	background: -o-linear-gradient(top, #373737, #212121);
+	background: linear-gradient(top, #373737, #212121);
+	min-height: 50px;
+}
+
+/* admin page */
+#admin-settings-list{
+    padding-left: 120px !important; 
+} 
+
+#admin-settings-page {
+    margin-left: 350px !important; 
 }

@@ -11,34 +11,30 @@ WebLinkAction = function(editor) {
   $(".sep").css("display","none");
   $(".user-name").text(getCookie("user_name"));
   $(".ui-action-large-icon").removeClass("user-photo");	
-	
-  // shortcut is Meta+L on Mac and Ctrl+L on other platforms.
-  sync.actions.AbstractAction.call(this, 'M1 L');
+  
+  // run workflow	
+  // shortcut is Meta+R on Mac and Ctrl+R on other platforms.
+  sync.actions.AbstractAction.call(this, 'M1 R');
   this.editor = editor;
 };
 WebLinkAction.prototype = Object.create(sync.actions.AbstractAction.prototype);
 WebLinkAction.prototype.constructor = WebLinkAction;
 
 WebLinkAction.prototype.getDisplayName = function() {
-  return 'Convert to Web Link';
+  return 'Run with Typefi';
 };
 
 // The action is enabled only if there is some content selected.
-WebLinkAction.prototype.isEnabled = function() {
-  return !this.editor.getSelectionManager().getSelection().isEmpty();
-};
+//WebLinkAction.prototype.isEnabled = function() {
+//  return !this.editor.getSelectionManager().getSelection().isEmpty();
+//};
 
 // The actual action execution.
 WebLinkAction.prototype.actionPerformed = function(callback) {
-  var text = window.prompt("Please enter the link attribute");
-  if (text) {
-    this.editor.getActionsManager().invokeOperation(
-      'ro.sync.ecss.extensions.commons.operations.SurroundWithFragmentOperation', {
-        fragment: '&lt;' + 'xref href="' + text + '"/>'
-      }, callback);
-  } else {
-    callback && callback();
-  }
+  var search   = window.location.search;  
+  
+  // open new page to browse workflow and run job
+  window.open('/oxygenrun'+search, 'typefi'); 
 };
 
 

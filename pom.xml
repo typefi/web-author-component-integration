@@ -36,7 +36,7 @@
       <version>${web.author.component.version}</version>
       <type>war</type>
     </dependency>
-  
+	<!-- 
     <dependency>
       <groupId>com.oxygenxml</groupId>
       <artifactId>web-author-webdav-plugin</artifactId>
@@ -44,6 +44,7 @@
       <type>jar</type>
       <classifier>plugin</classifier>
     </dependency>
+    -->
     <dependency>
       <groupId>com.oxygenxml</groupId>
       <artifactId>web-author-charpicker-plugin</artifactId>

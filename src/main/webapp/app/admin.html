@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=X-UA-Compatible content="IE=edge">
+<meta name=viewport content="width=device-width, initial-scale=1">
+<link rel=apple-touch-icon-precomposed href=images/WebApp57.png>
+<link rel=apple-touch-icon-precomposed sizes=76x76
+	href=images/WebApp76.png>
+<link rel=apple-touch-icon-precomposed sizes=120x120
+	href=images/WebApp120.png>
+<link rel=apple-touch-icon-precomposed sizes=152x152
+	href=images/WebApp152.png>
+<link rel=apple-touch-icon-precomposed sizes=180x180
+	href=images/WebApp180.png>
+<link rel=icon sizes=192x192 href=images/WebApp192.png>
+<meta name=apple-mobile-web-app-title content="Oxy Reviewer">
+<meta name=apple-mobile-web-app-capable content=yes>
+<meta name=apple-mobile-web-app-status-bar-style content=black>
+<link rel=icon type=image/png href=images/gui/favicon.ico>
+<title></title>
+<link rel=stylesheet href=css/admin-page-e6683d3747.css>
+<link rel=stylesheet href=css/typefi.css>
+<script type=text/javascript src=admin-custom.js></script>
+</head>
+<body>
+	<div id=webapp-admin-page>
+		<div id=header-bar class=ui-layout-north>
+			<div class="header-left vertical-align-children">
+				<a href=oxygen.html id=header-logo class=vertical-align-children><span
+					class="large-logo logo-container vertical-align-children"><div
+							class=ui-oxygen-logo></div></span></a> <span class=admin-page-title></span>
+			</div>
+			<a class="logout-button vertical-align-children" href=../logout><span></span></a>
+		</div>
+		<div class=admin-settings-body>
+			<div id=admin-settings-list class=ui-layout-west></div>
+			<div id=admin-settings-page class=ui-layout-center></div>
+		</div>
+	</div>
+	<script src=admin-582a9d9b5f.js></script>
+	<script>
+		var adminPage = new sync.admin.MainPage('webapp-admin-page');
+	</script>
+	<script>
+		document.querySelector('title').textContent = tr(msgs.WEB_AUTHOR_NAME_)
+				+ ' ' + tr(msgs.ADMINISTRATION_PAGE_);
+		document.querySelector('.admin-page-title').textContent = tr(msgs.ADMINISTRATION_PAGE_);
+
+		var logoutButton = document.querySelector('.logout-button');
+		logoutButton.setAttribute('title', tr(msgs.LOGOUT_));
+		logoutButton.querySelector('span').textContent = tr(msgs.LOGOUT_);
+
+		document.querySelector('#header-logo').setAttribute('title',
+				tr(msgs.GO_TO_DASHBOARD_, {
+					'$APP_NAME' : tr(msgs.WEB_AUTHOR_NAME_)
+				}));
+	</script>
+</body>
+</html>
