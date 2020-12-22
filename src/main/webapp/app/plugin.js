@@ -10,16 +10,15 @@
  */
 
 //------------ Typefi Attach workflow -------------------------------
-TypefiAttachWorkflowAction = function(editor) {
-  sync.actions.AbstractAction.call(this, '');
-  
+TypefiAttachWorkflowAction = function(editor) {  
   this.editor = editor;
   this.dialog = workspace.createDialog();
   this.dialog.setTitle('Attach workflow');
   this.dialog.setButtonConfiguration(sync.api.Dialog.ButtonConfiguration.OK);
   this.dialog.setContentPreferredSize(800, 400)
-
+  this.dialog.setHasTitleCloseButton(true);
 };
+
 TypefiAttachWorkflowAction.prototype = Object.create(sync.actions.AbstractAction.prototype);
 TypefiAttachWorkflowAction.prototype.constructor = TypefiAttachWorkflowAction;
 
@@ -64,7 +63,6 @@ TypefiPublishWorkflowAction = function(editor) {
     // shortcut is Meta+R on Mac and Ctrl+R on other platforms.
     sync.actions.AbstractAction.call(this, 'M1 R');
     
-    sync.actions.AbstractAction.call(this, '');
     this.editor = editor;
     
     // modal dialog settings
@@ -78,6 +76,8 @@ TypefiPublishWorkflowAction = function(editor) {
         //,{key: "CHANGE", caption: "Change", default: false, cancel: true}
     ]
     this.dialog.setButtonConfiguration(but); // yes no button
+    this.dialog.setResizable(true);
+    this.dialog.setPosition(350, 100);
 };
 TypefiPublishWorkflowAction.prototype = Object.create(sync.actions.AbstractAction.prototype);
 TypefiPublishWorkflowAction.prototype.constructor = TypefiPublishWorkflowAction;
@@ -92,11 +92,27 @@ TypefiPublishWorkflowAction.prototype.getSmallIcon = function() {
 
 /** The actual action execution. */
 TypefiPublishWorkflowAction.prototype.actionPerformed = function(callback) {
-      var wf = getCookie("typefi_workflow") === "null" || getCookie("typefi_workflow") === null ? '' : getCookie("typefi_workflow");
-      this.dialog.getElement().innerHTML = 'Do you want to run this workflow : ' +wf;
-      this.dialog.onSelect(onSelectCallback); // Alwas need to register call back each time
-      this.dialog.show();
-      // run handled by the event handler onSelectCallback
+		var wf = getCookie("typefi_workflow") === "null" || getCookie("typefi_workflow") === null ? '' : getCookie("typefi_workflow");
+		
+		this.dialog.getElement().innerHTML = 'Do you want to run this workflow : ' +wf
+		+'   <button class=\"button-change\" type=\"button\" onclick=\"changeWorkflow()\">Change</button>'+  
+		"<div style=\"display: none;\" id=\"typefi-file-browser\">"+
+		"<b>Attached workflow</b> : <input id=\"typefi-workflow\" value=\""+wf
+		+"\" style=\"width: 80%;border: none;background: white;color: #969696;\" disabled />"+
+		"<div class=\"modal-body\" id=\"typefi-modal-body\">"+
+		"<ul class=\"breadcrumb\" id=\"typefi-filechooser-breadcrumb\">"+
+		"</ul>"+
+		"<div id=\"typefi-table-body\">"+
+		"</div>"+
+		"</div>";
+		
+		   
+		// initalise typefi modal tree view
+		getFileList("", true, false);
+		
+		this.dialog.setPosition(350, 100);
+		this.dialog.onSelect(onSelectCallback, this); // Alwas need to register call back each time
+		this.dialog.show();
 };
 
 
@@ -140,12 +156,21 @@ function onSelectCallback(key, event) {
       case "CANCEL":
             workspace.getNotificationManager().showInfo("Publish Typefi job canceled");
         break;
-      case "CHANGE":
-        // code block
-        break;
       default:
         // code block
     }
+}
+
+/**
+ * Change worklfow 
+ */
+function changeWorkflow(){
+     $(".button-change").css("display", "none");
+     $("#typefi-file-browser").css("height", "400px");
+     $("#typefi-file-browser").css("width", "800px");
+     $("#typefi-file-browser").css("display", "");
+     $("#typefi-file-browser").parent().parent().parent('div').css("left", "15%");
+     $("#typefi-file-browser").parent().parent().parent('div').css("top", "5%");
 }
 
 /**
