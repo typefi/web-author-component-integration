@@ -431,7 +431,7 @@ function getFileList(path, folder, link){
 	
 	// for windows
 	//C:/APPS/DATA/Typefi
-	typefiFilestoreLocation = typefiFilestoreLocation.replaceAll("/","\\")
+	//typefiFilestoreLocation = typefiFilestoreLocation.replaceAll("/","\\")
 
 
     for (var key in treeData){
@@ -442,7 +442,7 @@ function getFileList(path, folder, link){
         var pathWithFolderSeparator = file.path.replace(typefiFilestoreLocation, "");
 		
 		//for windows
-		pathWithFolderSeparator = pathWithFolderSeparator.replaceAll("\\","/")
+		//pathWithFolderSeparator = pathWithFolderSeparator.replaceAll("\\","/")
 
         
 					if( file.folder === true || file.name.indexOf(".typefi_workflow") !== -1 )	{				
