@@ -17,8 +17,8 @@
   </developers>
 
   <properties>
-    <oxygen.version>23.1.0.0</oxygen.version>
-    <web.author.component.version>23.1.0.0</web.author.component.version>
+    <oxygen.version>[23.0.0.0, 23.1.0.0)</oxygen.version>
+    <web.author.component.version>[23.0.0.0, 23.1.0.0)</web.author.component.version>
   </properties>
   
   <repositories>
