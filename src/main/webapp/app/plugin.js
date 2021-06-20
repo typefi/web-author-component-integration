@@ -19,8 +19,11 @@ TypefiAttachWorkflowAction = function(editor) {
   this.dialog.setHasTitleCloseButton(true);
 };
 
+
+document.body.onload = function() {
 TypefiAttachWorkflowAction.prototype = Object.create(sync.actions.AbstractAction.prototype);
 TypefiAttachWorkflowAction.prototype.constructor = TypefiAttachWorkflowAction;
+}
 
 /** The display name of the action */
 TypefiAttachWorkflowAction.prototype.getDisplayName = function() {
@@ -79,8 +82,10 @@ TypefiPublishWorkflowAction = function(editor) {
     this.dialog.setResizable(true);
     this.dialog.setPosition(350, 100);
 };
+document.body.onload = function() {
 TypefiPublishWorkflowAction.prototype = Object.create(sync.actions.AbstractAction.prototype);
 TypefiPublishWorkflowAction.prototype.constructor = TypefiPublishWorkflowAction;
+}
 
 TypefiPublishWorkflowAction.prototype.getDisplayName = function() {
   return 'Publish Typefi workflow';
