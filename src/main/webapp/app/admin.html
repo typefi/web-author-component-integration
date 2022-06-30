@@ -38,9 +38,11 @@
 			<div id=admin-settings-page class=ui-layout-center></div>
 		</div>
 	</div>
-	<script src=admin-582a9d9b5f.js></script>
+	<script src=./admin-3502b85b23.js></script>
 	<script>
+	document.body.onload = function() {
 		var adminPage = new sync.admin.MainPage('webapp-admin-page');
+		}
 	</script>
 	<script>
 		document.querySelector('title').textContent = tr(msgs.WEB_AUTHOR_NAME_)
@@ -55,6 +57,7 @@
 				tr(msgs.GO_TO_DASHBOARD_, {
 					'$APP_NAME' : tr(msgs.WEB_AUTHOR_NAME_)
 				}));
+
 	</script>
 </body>
 </html>

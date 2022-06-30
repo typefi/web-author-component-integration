@@ -17,8 +17,8 @@
   </developers>
 
   <properties>
-    <oxygen.version>23.0.0.0</oxygen.version>
-    <web.author.component.version>23.0.0.0</web.author.component.version>
+    <oxygen.version>24.1.0.0</oxygen.version>
+    <web.author.component.version>24.1.0.0</web.author.component.version>
   </properties>
   
   <repositories>
@@ -35,8 +35,9 @@
       <artifactId>web-author-component</artifactId>
       <version>${web.author.component.version}</version>
       <type>war</type>
+      <scope>provided</scope>
     </dependency>
-	<!-- 
+  
     <dependency>
       <groupId>com.oxygenxml</groupId>
       <artifactId>web-author-webdav-plugin</artifactId>
@@ -44,7 +45,6 @@
       <type>jar</type>
       <classifier>plugin</classifier>
     </dependency>
-    -->
     <dependency>
       <groupId>com.oxygenxml</groupId>
       <artifactId>web-author-charpicker-plugin</artifactId>

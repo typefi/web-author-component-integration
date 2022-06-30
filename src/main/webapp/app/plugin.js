@@ -1,8 +1,8 @@
 /* Add custom code here */
-/* 
+/*
  * Refer : https://www.oxygenxml.com/maven/com/oxygenxml/oxygen-webapp/22.1.0.0/jsdoc/tutorial-customaction.html
  */
- 
+
 /**
  * The action that shows a dialog with information about the element at caret.
  *
@@ -10,7 +10,7 @@
  */
 
 //------------ Typefi Attach workflow -------------------------------
-TypefiAttachWorkflowAction = function(editor) {  
+TypefiAttachWorkflowAction = function(editor) {
   this.editor = editor;
   this.dialog = workspace.createDialog();
   this.dialog.setTitle('Attach workflow');
@@ -33,18 +33,18 @@ TypefiAttachWorkflowAction.prototype.getSmallIcon = function() {
 
 /** The actual action execution. */
 TypefiAttachWorkflowAction.prototype.actionPerformed = function(callback) {
-		// read attach workflow from cookie 
+		// read attach workflow from cookie
         var wf = getCookie("typefi_workflow") === "null" || getCookie("typefi_workflow") === null ? '' : getCookie("typefi_workflow");
         // attach workflow modal body html
-        this.dialog.getElement().innerHTML = 
+        this.dialog.getElement().innerHTML =
                     "<b>Attached workflow</b> : <input id=\"typefi-workflow\" value=\""+wf
                     +"\" style=\"width: 80%;border: none;background: white;color: #969696;\" disabled />"+
                     "<div class=\"modal-body\" id=\"typefi-modal-body\">"+
                     "<ul class=\"breadcrumb\" id=\"typefi-filechooser-breadcrumb\">"+
                     "</ul>"+
                     "<div id=\"typefi-table-body\">"+
-                    "</div>";	
-        
+                    "</div>";
+
         // initalise typefi modal tree view
         getFileList("", true, false);
         // show modal
@@ -54,24 +54,24 @@ TypefiAttachWorkflowAction.prototype.actionPerformed = function(callback) {
 //------------ Typefi publish workflow -------------------------------
 // Typefi publish workflow action
 TypefiPublishWorkflowAction = function(editor) {
-    // set login details	
+    // set login details
     $(".sep").css("display","none");
     $(".user-name").text(getCookie("user_name"));
-    $(".ui-action-large-icon").removeClass("user-photo");	
-    
-    // run workflow	
+    $(".ui-action-large-icon").removeClass("user-photo");
+
+    // run workflow
     // shortcut is Meta+R on Mac and Ctrl+R on other platforms.
     sync.actions.AbstractAction.call(this, 'M1 R');
-    
+
     this.editor = editor;
-    
+
     // modal dialog settings
     this.dialog = workspace.createDialog();
     this.dialog.setTitle('Publish workflow'); // title
-    
+
     // custom buttons
     var but = [
-        {key: "PUBLISH", caption: "Publish", default: true, cancel: false}, 
+        {key: "PUBLISH", caption: "Publish", default: true, cancel: false},
         {key: "CANCEL", caption: "Cancel", default: false, cancel: true}
         //,{key: "CHANGE", caption: "Change", default: false, cancel: true}
     ]
@@ -93,9 +93,9 @@ TypefiPublishWorkflowAction.prototype.getSmallIcon = function() {
 /** The actual action execution. */
 TypefiPublishWorkflowAction.prototype.actionPerformed = function(callback) {
 		var wf = getCookie("typefi_workflow") === "null" || getCookie("typefi_workflow") === null ? '' : getCookie("typefi_workflow");
-		
+
 		this.dialog.getElement().innerHTML = 'Do you want to run this workflow : ' +wf
-		+'   <button class=\"button-change\" type=\"button\" onclick=\"changeWorkflow()\">Change</button>'+  
+		+'   <button class=\"button-change\" type=\"button\" onclick=\"changeWorkflow()\">Change</button>'+
 		"<div style=\"display: none;\" id=\"typefi-file-browser\">"+
 		"<b>Attached workflow</b> : <input id=\"typefi-workflow\" value=\""+wf
 		+"\" style=\"width: 80%;border: none;background: white;color: #969696;\" disabled />"+
@@ -105,11 +105,11 @@ TypefiPublishWorkflowAction.prototype.actionPerformed = function(callback) {
 		"<div id=\"typefi-table-body\">"+
 		"</div>"+
 		"</div>";
-		
-		   
+
+
 		// initalise typefi modal tree view
 		getFileList("", true, false);
-		
+
 		this.dialog.setPosition(350, 100);
 		this.dialog.onSelect(onSelectCallback, this); // Alwas need to register call back each time
 		this.dialog.show();
@@ -119,27 +119,27 @@ TypefiPublishWorkflowAction.prototype.actionPerformed = function(callback) {
 //------------ Common event handling -------------------------------
 // bind with toolbar
 goog.events.listen(workspace, sync.api.Workspace.EventType.EDITOR_LOADED, function(e) {
-    // set login details	
+    // set login details
     $(".sep").css("display","none");
     $(".user-name").text(getCookie("user_name"));
-    $(".ui-action-large-icon").removeClass("user-photo");	
-    
+    $(".ui-action-large-icon").removeClass("user-photo");
+
     var editor = e.editor;
     // Register the newly created action.
     editor.getActionsManager().registerAction('insert.printlink', new TypefiAttachWorkflowAction(editor));
     addToDitaToolbar(editor, 'insert.printlink');
     addToContextMenu(editor, 'insert.printlink');
-    
+
     // Register the newly created action.
     editor.getActionsManager().registerAction('insert.workflowlink', new TypefiPublishWorkflowAction(editor));
     addToDitaToolbar(editor, 'insert.workflowlink');
     addToContextMenu(editor, 'insert.workflowlink');
-    
+
     // Refresh the action enabled/disabled status when the selection changes.
     goog.events.listen(editor.getSelectionManager(), sync.api.SelectionManager.EventType.SELECTION_CHANGED, function() {
         editor.getActionsManager().refreshActionsStatus('insert.printlink')
         editor.getActionsManager().refreshActionsStatus('insert.workflowlink')
-    });      
+    });
 });
 
 
@@ -162,7 +162,7 @@ function onSelectCallback(key, event) {
 }
 
 /**
- * Change worklfow 
+ * Change worklfow
  */
 function changeWorkflow(){
      $(".button-change").css("display", "none");
@@ -183,11 +183,11 @@ function addToDitaToolbar(editor, actionId) {
     var ditaToolbar = null;
     if (actionsConfig.toolbars) {
       for (var i = 0; i < actionsConfig.toolbars.length; i++) {
-        var toolbar = actionsConfig.toolbars[i];        
+        var toolbar = actionsConfig.toolbars[i];
         //Builtin
         if (toolbar.name === "Builtin") {
           ditaToolbar = toolbar;
-        }       
+        }
       }
     }
 
@@ -211,7 +211,7 @@ function addToDitaToolbar(editor, actionId) {
                                 id: child[keyChild].id,
                                 type: "action"
                               });
-                        
+
                             child.splice(x, 1);
                         }
                         x++;
@@ -220,12 +220,12 @@ function addToDitaToolbar(editor, actionId) {
                    children[key].children = child;
                    newChild.push(children[key]);
              }
-            
+
              else{
                    newChild.push(children[key]);
              }
         }
-        
+
         ditaToolbar.children = newChild;
     }
   });
@@ -245,11 +245,11 @@ function addToContextMenu(editor, actionId) {
 }
 
 
-function changeWf(cthis){    
+function changeWf(cthis){
     var oxyNode = cthis.editor.getSelectionManager().getSelection().getNodeAtCaret();
     if (oxyNode) {
         var wf = getCookie("typefi_workflow") === "null" || getCookie("typefi_workflow") === null ? '' : getCookie("typefi_workflow");
-  
+
         cthis.dialog.getElement().innerHTML = 'Do you want to run this workflow : ' +wf+
         '   <button class=\"button-change\" type=\"button\" onclick=\"changeWf('+this+')\">Change</button>';
         cthis.dialog.onSelect(onSelectCallback); // Alwas need to register call back each time
@@ -263,11 +263,11 @@ function changeWf(cthis){
 function runJob(){
     var wf = getCookie("typefi_workflow") === "null" || getCookie("typefi_workflow") === null ? '' : getCookie("typefi_workflow");
     var workflow = httpGetWf("/oxygenrun/override"); //oxygenrun
-    //console.log(workflow);    
+    //console.log(workflow);
     sendPost("/api/v1/workflows/"+wf, workflow)
 }
-    
-    
+
+
 /**
  * Function to get workflow
  */
@@ -285,7 +285,7 @@ function httpGet(theUrl) {
     xmlHttp.open("GET", theUrl, false);
     // false for synchronous request
     xmlHttp.send(null);
-    
+
     // convert to object
     var obj = JSON.parse(xmlHttp.responseText);
     return obj;
@@ -298,7 +298,7 @@ function httpGetWf(theUrl) {
 
     var paramUrl = "input="+file+"&workflow=/"+wf;
     var http = new XMLHttpRequest();
-    
+
     http.open("GET", theUrl+"?"+paramUrl, false);
     http.onreadystatechange = function()
     {
@@ -307,7 +307,7 @@ function httpGetWf(theUrl) {
         	console.log("Get request success");
         }
     }
-    
+
     http.send(null);
     var obj = JSON.parse(http.responseText);
     return obj;
@@ -321,14 +321,14 @@ function sendPost(url, workflow) {
     var boundary = '---------------------------7da24f2e50046';
     xhr.setRequestHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
 
-    var body = "" +     
-        '--' + boundary + '\r\n' + 
-        'Content-Disposition: form-data; name="file[]"; filename="' + fileName + '"' + '\r\n' + 
-        'Content-Type: application/json' + '\r\n' + 
-        '' + '\r\n' + 
-        JSON.stringify(workflow) + '\r\n' + 
-        '--' + boundary + '--' + 
-        ''; 
+    var body = "" +
+        '--' + boundary + '\r\n' +
+        'Content-Disposition: form-data; name="file[]"; filename="' + fileName + '"' + '\r\n' +
+        'Content-Type: application/json' + '\r\n' +
+        '' + '\r\n' +
+        JSON.stringify(workflow) + '\r\n' +
+        '--' + boundary + '--' +
+        '';
 
     xhr.onreadystatechange = function ()
     {
@@ -342,8 +342,8 @@ function sendPost(url, workflow) {
    xhr.send(body);
    return true;
 }
-    
-//------------------ JSON Util ----------------------    
+
+//------------------ JSON Util ----------------------
 function isJson(str) {
     try {
         return JSON.parse(str);
@@ -355,9 +355,9 @@ function isJson(str) {
 function isArray(what) {
    return Object.prototype.toString.call(what) === '[object Array]';
 }
-   
+
 //------------------ typefi file chooser----------------------
-   
+
 function clickFile(path, type, link) {
 	if (type === true || type === "true") {
 		getFileList(path, type, link);
@@ -371,31 +371,31 @@ function clickFile(path, type, link) {
 function clickBreadCrumb(path) {
     getFileList(path, true, true);
 }
-	
-function displayBreadCrumb (path, type, link) { 
+
+function displayBreadCrumb (path, type, link) {
     // Create an anchor which, when clicked, triggers updating of
     // breadcrumbs and file list
     var html = '<li><a href=\"javascript:clickBreadCrumb(\'\')\">Files</a></li>';
     var i;
     var breadcrumbs =[];
-    
+
     // Decodes the path from encodeURIComponent
     var decodedPath = decodeURIComponent(encodeSpecialCharacters(path));
-    
+
     // Split the decoded path on folder separator if non-empty
     if (decodedPath != "") {
         breadcrumbs = decodedPath.split('/');
     }
-    
+
     // For files, omit the final item in the path
     //var count = (type == 'file' ? (breadcrumbs.length - 1): breadcrumbs.length);
     var count = (type == true || type == "true" ? (breadcrumbs.length - 1): breadcrumbs.length);
     var url = '';
-    
+
     for (i = 0; i <= count; i++) {
         // Prepend with / unless this is the first item in the path
         url += (i != 0 ? '/': '') + breadcrumbs[i];
-        
+
         // If the url is non-empty then add the item to the breadcrumbs
         // along with an anchor
         // which, when clicked, triggers updating of breadcrumbs and file
@@ -404,10 +404,10 @@ function displayBreadCrumb (path, type, link) {
             html += '<li><a href=\'javascript:clickBreadCrumb(\"' + encodeSpecialCharacters(url) + '\")\'>' + escapeHtml(breadcrumbs[i]) + '</a></li>';
         }
     }
-    
-    // Update breadcrumbs with the html created    
+
+    // Update breadcrumbs with the html created
     var modalbody = document.getElementById("typefi-filechooser-breadcrumb");
-    
+
     if(link){
         modalbody.innerHTML = "";
         modalbody.innerHTML = modalbody.innerHTML + html;
@@ -417,27 +417,27 @@ function displayBreadCrumb (path, type, link) {
 }
 
 function getFileList(path, folder, link){
-    var tableHtml = '<table class=\"table table-hover\" id=\"typefi-filechooser-file\">' +'<tr>' 
-                    +'<th class=\"typefi-tight-col typefi-right-col col-xs-1\">' + "" + '</th>' 
-                    +'<th style=\"text-align: left;\" class=\"typefi-left-colx col-xs-6\">' + "Name" + '</th>' 
-                    + '</th>' + '<th style=\"text-align: right;\" class=\"typefi-right-col col-xs-3\">' + '<div>' + "Size" + '</div>' + '</th>' 
+    var tableHtml = '<table class=\"table table-hover\" id=\"typefi-filechooser-file\">' +'<tr>'
+                    +'<th class=\"typefi-tight-col typefi-right-col col-xs-1\">' + "" + '</th>'
+                    +'<th style=\"text-align: left;\" class=\"typefi-left-colx col-xs-6\">' + "Name" + '</th>'
+                    + '</th>' + '<th style=\"text-align: right;\" class=\"typefi-right-col col-xs-3\">' + '<div>' + "Size" + '</div>' + '</th>'
                     + '<th style=\"text-align: right;\" class=\"typefi-right-col col-xs-3\">' + "Modified" + '</th>' + '</tr>';
-    
+
     displayBreadCrumb(path, folder, link);
     var treeData = httpGet("/api/v1/cms/folders?url=rest://cms/"+path );
-    
+
     var typefiFilestoreLocation =  httpGet("/api/v1/filestoreproperties");
     typefiFilestoreLocation = typefiFilestoreLocation.filestoreLocation;
 
 
     for (var key in treeData){
         var file = treeData[key];
-        
 
-        
+
+
         var pathWithFolderSeparator = file.path.replace(typefiFilestoreLocation, "");
-        
-					if( file.folder === true || file.name.indexOf(".typefi_workflow") !== -1 )	{				
+
+					if( file.folder === true || file.name.indexOf(".typefi_workflow") !== -1 )	{
         				tableHtml = tableHtml + '<tr>'
         				// File icon
         				+ '<td><i class=\"'
@@ -455,16 +455,16 @@ function getFileList(path, folder, link){
         						: '')
         				+ '</td>'
         				+ '<td style=\"text-align: right;\" class=\"typefi-right-col\">'
-        				+  (file.folder === true ? '--' : formatFileSize(file.size))		
+        				+  (file.folder === true ? '--' : formatFileSize(file.size))
         				+ '</td>'
         				+ '<td style=\"text-align: right;\" class=\"typefi-right-col\">'
         				+ compactDate(file.modified)
         				+ '</td>'
         				+ '</tr>';
     				}
-    				
+
     }
-    
+
     var modalbody = document.getElementById("typefi-table-body");
     if(link){
         modalbody.innerHTML = "";
@@ -506,7 +506,7 @@ function getPathExtension(filename, folder) {
    	var extensionIndex = filename.lastIndexOf(".");
    	return extensionIndex === -1 ? "" : filename.slice(extensionIndex + 1);
 	}
-	
+
 	return "";
 }
 
@@ -524,14 +524,14 @@ function getFileName (fileName, folder) {
 }
 
 //------------ Cookie util -------------------------------
-	
+
 /**
  * Set cookie
  * @param name
  * @param value
  * @param days
  * @returns
- */	
+ */
 function setCookie(name,value,days) {
     var expires = "";
     if (days) {
@@ -563,11 +563,11 @@ function getCookie(name) {
  * @param name
  * @returns
  */
-function eraseCookie(name) {   
+function eraseCookie(name) {
     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
-	
-	
+
+
 /**
  * Get user from cookie
  * @param cname
@@ -615,11 +615,11 @@ function compactDate(d) {
 
 /**
  * Closure to convert month index to 3 letter month name. e.g.
- * 
+ *
  * 0 => "Jan", 1 => "Feb", etc
- * 
+ *
  * http://youtu.be/hQVTIJBZook?t=25m42s
- * 
+ *
  * @memberOf TYPEFI
  */
 function monthName() {
@@ -640,7 +640,7 @@ function isBeforeThisYear(date) {
 /**
  * Compact time only format, e.g. "3:27 pm". If includeSeconds is true then
  * seconds are also included
- * 
+ *
  * @memberOf TYPEFI
  */
  function compactTime(date, includeSeconds) {
@@ -665,7 +665,7 @@ function pad2(n) {
 
 /**
  * Returns whether date occurs before today
- * 
+ *
  * @memberOf TYPEFI
  */
 function isBeforeToday(date) {
