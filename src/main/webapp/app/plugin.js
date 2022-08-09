@@ -423,7 +423,7 @@ function getFileList(path, folder, link){
 
     displayBreadCrumb(path.replaceAll("\\","/"), folder, link);
     var treeData = httpGet("/api/v1/cms/folders?url=rest://cms/"+path.replaceAll("\\","/"));
-    var typefiFilestoreLocation =  httpGet("/api/v1/filestoreproperties");
+    var typefiFilestoreLocation =  httpGet("/api/v1/filestoreproperties?oxygen=true");
     typefiFilestoreLocation = typefiFilestoreLocation.filestoreLocation.toString().replace(/\\/g, '/');
 
 
