@@ -304,7 +304,6 @@ function httpGetWf(theUrl) {
     {
         if(http.readyState == 4 && http.status == 200) {
             //console.log(http.responseText);
-        	console.log("Get request success");
         }
     }
 
@@ -335,8 +334,7 @@ function sendPost(url, workflow) {
         if (xhr.readyState == 4 && xhr.status == 200)
         {
             //console.log(xhr.responseText);
-        	console.log("Post request success");
-        }
+                    }
     }
    console.log(body);
    xhr.send(body);
@@ -423,30 +421,30 @@ function getFileList(path, folder, link){
                     + '</th>' + '<th style=\"text-align: right;\" class=\"typefi-right-col col-xs-3\">' + '<div>' + "Size" + '</div>' + '</th>'
                     + '<th style=\"text-align: right;\" class=\"typefi-right-col col-xs-3\">' + "Modified" + '</th>' + '</tr>';
 
-    displayBreadCrumb(path, folder, link);
-    var treeData = httpGet("/api/v1/cms/folders?url=rest://cms/"+path );
-
+    displayBreadCrumb(path.replaceAll("\\","/"), folder, link);
+    var treeData = httpGet("/api/v1/cms/folders?url=rest://cms/"+path.replaceAll("\\","/"));
     var typefiFilestoreLocation =  httpGet("/api/v1/filestoreproperties");
-    typefiFilestoreLocation = typefiFilestoreLocation.filestoreLocation;
+    typefiFilestoreLocation = typefiFilestoreLocation.filestoreLocation.toString().replace(/\\/g, '/');
 
 
-    for (var key in treeData){
-        var file = treeData[key];
+     for (var key in treeData){
+         var file = treeData[key];
 
 
+        var filePath = file.path.replaceAll("\\","/");
+         var pathWithFolderSeparator = filePath.replace(typefiFilestoreLocation, "");
+         pathWithFolderSeparator = pathWithFolderSeparator.replaceAll("\\","/");
 
-        var pathWithFolderSeparator = file.path.replace(typefiFilestoreLocation, "");
-
-					if( file.folder === true || file.name.indexOf(".typefi_workflow") !== -1 )	{
-        				tableHtml = tableHtml + '<tr>'
-        				// File icon
-        				+ '<td><i class=\"'
-        				+ (file.folder === true ? "ft-folder-o"
-        						: (file.name.indexOf(".typefi_workflow") !== -1) ? "ft-rocket":"ft-file-o")
-        				+ '\"></i></td>'
+	 				if( file.folder === true || file.name.indexOf(".typefi_workflow") !== -1 )	{
+         				tableHtml = tableHtml + '<tr>'
+         				// File icon
+         				+ '<td><i class=\"'
+         				+ (file.folder === true ? "ft-folder-o"
+         						: (file.name.indexOf(".typefi_workflow") !== -1) ? "ft-rocket":"ft-file-o")
+         				+ '\"></i></td>'
         				+ '<td data-file-name-lower-case="'+file.folder+'" class="typefi-files-name">'
         				+ ( file.folder === true || file.name.indexOf(".typefi_workflow") !== -1 ? ('<a class=\"'+file.folder+'\"'+' href=\'javascript:clickFile(\"'
-        						+ decodeURIComponent(encodeSpecialCharacters(pathWithFolderSeparator))
+        						+ pathWithFolderSeparator
         						+ '\", \"' + file.folder +'\", \"'+file.folder+ '\")\'>')
         						: '' )
         				+ escapeHtml(getFileName(file.name, file.folder))
@@ -454,16 +452,16 @@ function getFileList(path, folder, link){
         						|| item.type == 'folder' ? '</a>'
         						: '')
         				+ '</td>'
-        				+ '<td style=\"text-align: right;\" class=\"typefi-right-col\">'
-        				+  (file.folder === true ? '--' : formatFileSize(file.size))
-        				+ '</td>'
-        				+ '<td style=\"text-align: right;\" class=\"typefi-right-col\">'
-        				+ compactDate(file.modified)
-        				+ '</td>'
-        				+ '</tr>';
-    				}
+         				+ '<td style=\"text-align: right;\" class=\"typefi-right-col\">'
+         				+  (file.folder === true ? '--' : formatFileSize(file.size))
+         				+ '</td>'
+         				+ '<td style=\"text-align: right;\" class=\"typefi-right-col\">'
+         				+ compactDate(file.modified)
+         				+ '</td>'
+         				+ '</tr>';
+     				}
 
-    }
+     }
 
     var modalbody = document.getElementById("typefi-table-body");
     if(link){
