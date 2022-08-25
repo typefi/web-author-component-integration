@@ -144,6 +144,15 @@ goog.events.listen(workspace, sync.api.Workspace.EventType.EDITOR_LOADED, functi
 
 
 
+goog.events.listen(workspace, sync.api.Workspace.EventType.BEFORE_EDITOR_LOADED, function(e) {
+  var editor = e.editor;
+
+    workspace.setUrlChooser(new sync.api.FileBrowsingDialog());
+
+  });
+
+
+
 /**
  * button select callback
  */
