@@ -9,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 11
@@ -19,11 +18,9 @@ jobs:
           distribution: 'adopt'
       - name: Build with Maven
         run: mvn --batch-mode --update-snapshots package
-        with:
-        arguments: build
-      env:
-        USERNAME: ${{ github.actor }}
-        TOKEN: ${{ secrets.TOKEN }}
+        env:
+          USERNAME: ${{ github.actor }}
+          TOKEN: ${{ secrets.TOKEN }}
       - uses: actions/upload-artifact@v3
         with:
           name: build-artifact
