@@ -24,4 +24,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: build-artifact
-          path: /home/runner/work/web-author-component-integration/web-author-component-integration/target/oxygen-xml-web-author.war
+          path: target/web-author-component-integration.war
